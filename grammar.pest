@@ -1,26 +1,29 @@
-name = { "." | "x" | "%" }
+name = { "." | "x" | "%" | "::" | "##" }
 item = { "[]" | "[!]" | "[!!]" | "[!!!]" }
 time = { ".o<" | ".o>" | ".o" }
-acts = { "->(+)" | "->(-)" | "->" }
+arrow = { "->" | "|->" }
+acts = { (arrow ~ "(+)") | (arrow ~ "(-)") | arrow }
+says = { ("|@" ~ time) | "|" }
+thinks = { "..." | ".|." }
 
 noun = { name | item }
 concept = { "{" ~ noun ~ "}" }
 
 action = { (noun | concept) ~ " " ~ acts ~ " " ~ (noun | concept) }
-proximity = { "(" ~ (name | concept) ~ " " ~ (name | concept) ~ ")" }
+proximity = { "(" ~ (noun | concept) ~ " " ~ (noun | concept) ~ ")" }
 made = { name ~ " --| " ~ noun }
 
 relationship = { proximity | action | made }
-extended_concept = { ("{" ~ relationship ~ "}") | concept }
+extended_concept = { ("{" ~ relationship ~ "}") | proximity | concept }
 
 extended_action = { (noun | extended_concept) ~ " " ~ acts ~ " " ~ (noun | extended_concept) }
-extended_proximity = { "(" ~ (name | extended_concept) ~ " " ~ (name | extended_concept) ~ ")" }
+extended_proximity = { "(" ~ (noun | extended_concept) ~ " " ~ (noun | extended_concept) ~ ")" }
 extended_relationship = { extended_action | extended_proximity | relationship }
 
 statement = { extended_relationship | noun | extended_concept }
 
-composite_says = { name ~ " |@" ~ time ~ " " ~ (composite_statement) }
-composite_thinks = { name ~ " ... " ~ "{" ~ (composite_statement) ~ "}" }
+composite_says = { name ~ " " ~ says ~ " " ~ (composite_statement) }
+composite_thinks = { name ~ " " ~ thinks ~ " " ~ "{" ~ (composite_statement) ~ "}" }
 composite_statement = { (composite_says | composite_thinks | statement) }
 
 multiple_statements = {(composite_statement ~ ";\n" ~ multiple_statements) | (composite_statement ~ ";")}

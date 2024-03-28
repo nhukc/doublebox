@@ -23,4 +23,7 @@ composite_says = { name ~ " |@" ~ time ~ " " ~ (composite_statement) }
 composite_thinks = { name ~ " ... " ~ "{" ~ (composite_statement) ~ "}" }
 composite_statement = { (composite_says | composite_thinks | statement) }
 
-top_level = {composite_statement ~ ";"}
+multiple_statements = {(composite_statement ~ ";\n" ~ multiple_statements) | (composite_statement ~ ";")}
+
+top_level = {multiple_statements ~ "\nDONE"}
+

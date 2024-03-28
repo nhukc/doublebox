@@ -7,7 +7,7 @@ says = { ("|@" ~ time) | "|" }
 thinks = { "..." | ".|." }
 
 noun = { name | item }
-concept = { "{" ~ noun ~ "}" }
+concept = { "{" ~ composite_statement ~ "}" }
 
 action = { (noun | concept) ~ " " ~ acts ~ " " ~ (noun | concept) }
 proximity = { "(" ~ (noun | concept) ~ " " ~ (noun | concept) ~ ")" }

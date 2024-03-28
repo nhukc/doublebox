@@ -20,7 +20,7 @@ concept = { "{" ~ composite_statement ~ "}" }
 
 action = { (noun | concept) ~ " " ~ acts ~ " " ~ (noun | concept) }
 proximity = { "(" ~ (noun | concept) ~ " " ~ (noun | concept) ~ ")" }
-made = { name ~ " --| " ~ noun }
+made = { (noun | concept) ~ " --| " ~ (noun | concept) }
 
 relationship = { proximity | action | made }
 extended_concept = { ("{" ~ relationship ~ "}") | proximity | concept }

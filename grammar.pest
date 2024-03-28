@@ -1,13 +1,19 @@
-name = { "." | "x" | "%" | "::" | "##" }
-item = { "[]" | "[!]" | "[!!]" | "[!!!]" }
+person = {"." | "x" | "%"}
+group = {"::" | "##"}
+name = { person | group }
+nothing = { "[]" }
+everything = { "[X]" }
+something = { "[!]" | "[!!]" | "[!!!]" }
+item = { nothing | something | everything }
 time = { ".o<" | ".o>" | ".o" }
 arrow = { "->" | "|->" }
 arrow_invert = { "|" | "" }
 arrow_sign = {"(+)" | "(-)" | ""}
 acts = { (arrow_invert ~ arrow ~ arrow_sign) }
-says_invert = {"-" | ""}
-says = { ("|" ~ says_invert ~ "@" ~ time) | ("|" ~ says_invert) }
-thinks = { "..." | ".|." }
+says_invert = { "-" | "" }
+says_certainty = { "<" | ">" | "" }
+says = { (says_certainty ~ "|" ~ says_invert ~ "@" ~ time) | (says_certainty ~ "|" ~ says_invert) }
+thinks = { "..." | ".-." }
 
 noun = { name | item }
 concept = { "{" ~ composite_statement ~ "}" }

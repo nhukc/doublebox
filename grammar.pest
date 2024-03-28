@@ -1,0 +1,27 @@
+name = { "." | "x" | "%" }
+item = { "[]" | "[!]" | "[!!]" | "[!!!]" }
+time = { ".o<" | ".o>" | ".o" }
+acts = { "->(+)" | "->(-)" | "->" }
+
+noun = { name | item }
+concept = { "{" ~ noun ~ "}" }
+
+action = { (noun | concept) ~ " " ~ acts ~ " " ~ (noun | concept) }
+proximity = { "(" ~ (name | concept) ~ " " ~ (name | concept) ~ ")" }
+says = { name ~ " | " ~ concept }
+says_time = { name ~ " |@" ~ time ~ " " ~ noun }
+thinks = { name ~ " ... " ~ concept }
+made = { name ~ " --| " ~ noun }
+
+relationship = { thinks | proximity | says_time | says | action | made }
+extended_concept = { ("{" ~ relationship ~ "}") | concept }
+
+extended_action = { (noun | extended_concept) ~ " " ~ acts ~ " " ~ (noun | extended_concept) }
+extended_proximity = { "(" ~ (name | extended_concept) ~ " " ~ (name | extended_concept) ~ ")" }
+extended_relationship = { extended_action | extended_proximity | relationship }
+
+statement = { extended_relationship | noun }
+
+composite_says = { name ~ " |@" ~ time ~ " " ~ (composite_statement) }
+composite_thinks = { name ~ "..." ~ (composite_statement | noun) }
+composite_statement = { (composite_says | composite_thinks | statement) ~ ";" }

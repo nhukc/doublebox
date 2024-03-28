@@ -8,10 +8,9 @@ concept = { "{" ~ noun ~ "}" }
 
 action = { (noun | concept) ~ " " ~ acts ~ " " ~ (noun | concept) }
 proximity = { "(" ~ (name | concept) ~ " " ~ (name | concept) ~ ")" }
-thinks = { name ~ " ... " ~ concept }
 made = { name ~ " --| " ~ noun }
 
-relationship = { thinks | proximity | action | made }
+relationship = { proximity | action | made }
 extended_concept = { ("{" ~ relationship ~ "}") | concept }
 
 extended_action = { (noun | extended_concept) ~ " " ~ acts ~ " " ~ (noun | extended_concept) }
@@ -21,7 +20,7 @@ extended_relationship = { extended_action | extended_proximity | relationship }
 statement = { extended_relationship | noun | extended_concept }
 
 composite_says = { name ~ " |@" ~ time ~ " " ~ (composite_statement) }
-composite_thinks = { name ~ "..." ~ (composite_statement | noun) }
+composite_thinks = { name ~ " ... " ~ "{" ~ (composite_statement) ~ "}" }
 composite_statement = { (composite_says | composite_thinks | statement) }
 
 top_level = {composite_statement ~ ";"}

@@ -2,8 +2,11 @@ name = { "." | "x" | "%" | "::" | "##" }
 item = { "[]" | "[!]" | "[!!]" | "[!!!]" }
 time = { ".o<" | ".o>" | ".o" }
 arrow = { "->" | "|->" }
-acts = { (arrow ~ "(+)") | (arrow ~ "(-)") | arrow }
-says = { ("|@" ~ time) | "|" }
+arrow_invert = { "|" | "" }
+arrow_sign = {"(+)" | "(-)" | ""}
+acts = { (arrow_invert ~ arrow ~ arrow_sign) }
+says_invert = {"-" | ""}
+says = { ("|" ~ says_invert ~ "@" ~ time) | ("|" ~ says_invert) }
 thinks = { "..." | ".|." }
 
 noun = { name | item }
